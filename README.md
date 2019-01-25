@@ -55,3 +55,8 @@ docker run -d -p 5432:5432 -e POSTGRES_USER=demo -v demo-data:/var/lib/postgresq
 
 アプリケーションはMaven（`mvn spring-boot:run`）か`java -jar`で実行できる。
 
+"Hello, world!"をするだけのエンドポイントを用意しているので次の`curl`コマンドで動作確認ができる。
+
+```
+curl localhost:8080/demo
+```
