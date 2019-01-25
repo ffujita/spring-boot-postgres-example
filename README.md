@@ -8,7 +8,7 @@ Spring Initializrを使う。
 
 `pom.xml`へDomaとdoma-spring-bootを追加する。
 
-```
+```diff
 diff --git a/pom.xml b/pom.xml
 index 6d0f680..03ff8a4 100644
 --- a/pom.xml
@@ -53,7 +53,7 @@ docker run -d -p 5432:5432 -e POSTGRES_USER=demo --name demo-db postgres
 docker run -d -p 5432:5432 -e POSTGRES_USER=demo -v demo-data:/var/lib/postgresql/data --name demo-db postgres
 ```
 
-アプリケーションはMaven（`mvn spring-boot:run`）か`java -jar`で実行できる。
+アプリケーションはMaven（`./mvnw spring-boot:run`）か`java -jar`で実行できる。
 
 "Hello, world!"をするだけのエンドポイントを用意しているので次の`curl`コマンドで動作確認ができる。
 
