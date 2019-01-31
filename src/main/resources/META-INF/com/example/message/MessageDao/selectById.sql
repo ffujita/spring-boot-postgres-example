@@ -1,0 +1,1 @@
+SELECT id,content FROM message WHERE id = /* id */0
