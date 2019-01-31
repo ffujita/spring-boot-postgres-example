@@ -1,13 +1,10 @@
 package com.example.message;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,22 +21,33 @@ public class MessageApplication {
 	@Autowired
 	MessageDao messageDao;
 
-	@Bean
-	CommandLineRunner runner() {
-		return args -> Arrays.asList("なぶ", "Nab", "ナブラーク", "Nablarch").forEach(s -> {
-			Message r = new Message();
-			r.content = s;
-			messageDao.insert(r);
-		});
-	}
-
 	@RequestMapping(method = RequestMethod.GET, path = "/")
 	List<Message> all() {
 		return messageDao.selectAll();
 	}
 
-	@RequestMapping(path = "/search")
+	@RequestMapping(method = RequestMethod.GET, path = "/search")
 	Message select(@RequestParam(value = "id", defaultValue = "1") int id) {
 		return messageDao.selectById(id);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, path = "/register")
+	void insert(@RequestParam(value = "content") String content) {
+		Message message = new Message();
+		message.content = content;
+		messageDao.insert(message);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, path = "/delete")
+	void delete(@RequestParam(value = "id") int id) {
+		Message message = messageDao.selectById(id);
+		messageDao.delete(message);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, path = "/update")
+	void update(@RequestParam int id, String content) {
+		Message message = messageDao.selectById(id);
+		message.content = content;
+		messageDao.update(message);
 	}
 }
